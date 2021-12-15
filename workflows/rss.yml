@@ -1,17 +1,18 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=300&count=3
+    url: 
+      - https://medium.com/feed/androiddevelopers # Android Developers on Medium
+      - https://blog.jetbrains.com/kotlin/feed/ # Official Kotlin Blog
 jobs:
-  print:
-    name: Print
+  discord:
+    name: Send a message to discord
     runs-on: ubuntu-latest
-    steps:
-      - name: Print Outputs
+    steps: 
+      - name: Discord notification
         env:
-          title: ${{on.rss.outputs.title}}
-          contentSnippet: ${{on.rss.outputs.contentSnippet}}
-          link: ${{on.rss.outputs.link}}
-        run: |
-          echo title: $title
-          echo contentSnippet: $contentSnippet
-          echo link: $link
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '{{ on.rss.outputs.title }}'
+          args: '{{ on.rss.outputs.link }}'
+          args: '{{ on.rss.outputs.content }}'
