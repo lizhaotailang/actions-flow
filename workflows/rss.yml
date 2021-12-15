@@ -11,6 +11,9 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TITLE: ${{on.rss.outputs.title}}
+          LINK: ${{on.rss.outputs.link}}
+          CONTENT: ${{on.rss.outputs.content}}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'test message'
+          args: 'test message: $TITLE'
