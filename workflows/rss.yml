@@ -16,4 +16,4 @@ jobs:
           CONTENT: ${{on.rss.outputs.content}}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'test message: $TITLE'
+          args: '*(${{on.rss.outputs.link}})*'
