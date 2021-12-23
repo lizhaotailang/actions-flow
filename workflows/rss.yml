@@ -16,4 +16,10 @@ jobs:
           CONTENT: ${{on.rss.outputs.content}}
         uses: Ilshidur/action-discord@master
         with:
-          args: '*(${{on.rss.outputs.link}})*'
+          args: |
+            *${{on.rss.outputs.title}}*
+            
+            *${{on.rss.outputs.link}}*
+            
+            *${{on.rss.outputs.content}}*
+            
