@@ -1,0 +1,23 @@
+on:
+  rss:
+    url: 
+      - https://adbackstage.libsyn.com/rss # Android Developers Backstage
+      - https://appsgamesinsights.libsyn.com/rss # Apps, Games, & Insights Podcast
+      - http://nowinandroid.googledevelopers.libsynpro.com/rss # Now in Android
+jobs:
+  discord:
+    name: Send a message to discord
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TITLE: ${{on.rss.outputs.title}}
+          LINK: ${{on.rss.outputs.link}}
+          CONTENT: ${{on.rss.outputs.content}}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            *${{on.rss.outputs.title}}*
+
+            *${{on.rss.outputs.link}}*
